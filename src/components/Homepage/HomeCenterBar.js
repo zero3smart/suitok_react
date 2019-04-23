@@ -23,16 +23,19 @@ class HomeCenterBar extends Component {
     }
     
     componentWillMount(){
-        document.addEventListener('mousedown', this.handleClick_HcbSbDropdownIcon, false)
+        document.addEventListener('mouseup', this.handleClick_HcbSbDropdownIcon, false)
     }
 
     componentWillUnmount(){
-        document.addEventListener('mousedown', this.handleClick_HcbSbDropdownIcon, false)
+        document.addEventListener('mouseup', this.handleClick_HcbSbDropdownIcon, false)
     }
 
     handleClick_HcbSbDropdownIcon = (e) => {
-        if(this.hcb_sb_button){
-            if(this.hcb_sb_button.contains(e.target)){
+        console.log('handleClick_HcbSbDropdownIcon:', e);
+        //if(this.hcb_sb_button){
+        if(this.hcb_sb_button_text){
+            //if(this.hcb_sb_button.contains(e.target)){
+            if(this.hcb_sb_button_text.contains(e.target)){
                 this.showSearchDropdown(!this.state.search_dropdown_visible);
             }
             else{
@@ -42,6 +45,7 @@ class HomeCenterBar extends Component {
     }
 
     showSearchDropdown(visible){
+        console.log('showSearchDropdown:', visible);
         this.setState({
             search_dropdown_visible: visible
         })
@@ -174,21 +178,21 @@ class HomeCenterBar extends Component {
                             <div className="hcb-search-bar">
                                 <div className="hcb-sb-button"
                                     ref={node => this.hcb_sb_button = node}>
-                                    <div className="hcb-sb-button__text">search by</div>
+                                    <div className="hcb-sb-button__text" ref={node => this.hcb_sb_button_text = node}>search by</div>
                                     <img className="hcb-sb-button__icon" src={ic_dropdown}></img>
                                     <div className="hcb-sb-dropdown" style={dropdown_style}>
                                         <div className="hcb-sb-dropdown--background">
                                         </div>
                                         <div className="hcb-sb-dropdown--wrap">
-                                            <div className="hcb-sb-dropdown-item" onClick={() => this.props.doSearchBy(CONST.SEARCH.IMAGE)}>
+                                            <div className="hcb-sb-dropdown-item" onMouseDown={() => this.props.doSearchBy(CONST.SEARCH.IMAGE)}>
                                                 <img className="hcb-sb-ditem__icon" src={ic_sh_camera}></img>
                                                 <span className="hcb-sb-ditem__text">image</span>
                                             </div>
-                                            <div className="hcb-sb-dropdown-item" onClick={() => this.props.doSearchBy(CONST.SEARCH.DESC)}>
+                                            <div className="hcb-sb-dropdown-item" onMouseDown={() => this.props.doSearchBy(CONST.SEARCH.DESC)}>
                                                 <img className="hcb-sb-ditem__icon" src={ic_sh_description}></img>
                                                 <span className="hcb-sb-ditem__text">description</span>
                                             </div>
-                                            <div className="hcb-sb-dropdown-item" onClick={() => this.props.doSearchBy(CONST.SEARCH.OUTFITS)}>
+                                            <div className="hcb-sb-dropdown-item" onMouseDown={() => this.props.doSearchBy(CONST.SEARCH.OUTFITS)}>
                                                 <img className="hcb-sb-ditem__icon" src={ic_sh_outfits}></img>
                                                 <span className="hcb-sb-ditem__text">outfits</span>
                                             </div>

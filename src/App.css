@@ -10,11 +10,11 @@
 
 
 ::-webkit-scrollbar { 
-  display: none; 
+  /* display: none;  */
 }
 
 ::-moz-scrollbars{
-  display: none;
+  /* display: none; */
 }
 
 html{
@@ -710,6 +710,7 @@ body.show--popup{
   overflow: scroll;
   height: 100%;
   -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .login-popup.show{
@@ -1238,7 +1239,8 @@ body.show--popup{
 }
 
 .form-type--left-side .form-type__title.form-type--right:hover{
-  text-shadow: 0px 0px 1px rgb(100, 100, 100);
+  /* text-shadow: 0px 0px 1px rgb(100, 100, 100); */
+  color: #646464;
 }
 
 .confirm-account-page .form-type__title{
@@ -1306,6 +1308,11 @@ body.show--popup{
 }
 
 .form-field__input-wrap:hover{
+  border: 2px solid #F36A22 !important;
+  padding: 3px 8px;
+}
+
+.form-field__input-wrap:focus-within{
   border: 2px solid #F36A22 !important;
   padding: 3px 8px;
 }
@@ -1510,6 +1517,11 @@ select{
   user-select: none;
   margin-left: 27px;
   margin-right: 45px;
+  color: #646464;
+}
+
+.form-radio-wrap input:checked ~ span{
+  color: black;
 }
 
 /* Hide the browser's default radio button */
@@ -1560,15 +1572,17 @@ select{
 }
 
 .form-radio-wrap:hover input:checked ~ .checkmark:after{
-  left: 1.6px;
-  top: 1.8px;
+  left: 1.65px;
+  top: 1.65px;
+  width: 9.76px;
+  height: 9.76px;
 }
 /* Style the indicator (dot/circle) */
 .form-radio-wrap .checkmark:after {
-  top: 2.8px;
-  left: 2.6px;
-  width: 10px;
-  height: 10px;
+  top: 2.65px;
+  left: 2.65px;
+  width: 9.76px;
+  height: 9.76px;
   border-radius: 50%;
   background: #010101;
 }
@@ -1645,6 +1659,7 @@ select{
 .form-check-wrap:hover input:checked ~ .checkmark:after{
   left: 3px;
   top: -1px;
+  top: 0px;
 }
 
 /* Style the checkmark/indicator */
@@ -1653,6 +1668,10 @@ select{
   top: 0px;
   width: 3px;
   height: 7px;
+  left: 4px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
   border: solid #F36A22;
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
@@ -2085,7 +2104,7 @@ select{
   }
 
   .form-page .container {
-      width: calc(100% - 624px);
+      /* width: calc(100% - 624px); */
   }
 
   .hcb-gender-menu-wrap{

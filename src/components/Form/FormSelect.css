@@ -14,10 +14,15 @@
     border: 2px solid #CA2F30;
 }
 
+.error--empty .not--empty .custom-react-select-container .custom-select__control{
+    border: 1px solid #000000;
+}
+
 .custom-react-select-container .custom-select__control{
     border: 1px solid #000000;
     border-radius: 0px;
     min-height: 35px;
+    height: 35px;
 }
 
 .custom-react-select-container .custom-select__control.custom-select__control--menu-is-open{

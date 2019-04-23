@@ -162,7 +162,7 @@ class PWResetPage extends Component {
                             <img className="location-info__flag" src={ic_flag}></img>
                             <span className="">UK, GBP | English</span>
                         </div>
-                        <img className="form-page__logo" src={ic_logo} onClick={() => window.location.href=CONST.PAGE.HOME}></img>
+                        <a href={CONST.PAGE.HOME}><img className="form-page__logo" src={ic_logo}></img></a>
                     </div>
                     
                     <div className={"form-container reset-pw-form " + class_form_state}>

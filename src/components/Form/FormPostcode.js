@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import CONST from '../../global/const'
 import FormSelect from './FormSelect'
-  
+
+import CustomDropdown from './CustomDropdown'
+
 import $ from 'jquery'
 
 class FormPostcode extends Component {
@@ -19,20 +21,31 @@ class FormPostcode extends Component {
             }
         }
         this.callbackInputChange = this.callbackInputChange.bind(this);
+        // this.callbackBlur = this.callbackBlur.bind(this);
     }
 
     componentDidMount(){
     }
 
     callbackInputChange(value){
+
         if(value == ''){
+            this.setState({
+                postcodes: []
+            })
             return;
         }
         // var postcodes = this.state.postcodes;
         // postcodes.push({
-        //     value: value,
-        //     label: value
+        //     key: value,
+        //     text: value,
+        //     value: value
         // })
+
+        // this.setState({
+        //     postcodes: postcodes
+        // });
+        // return;
         var instance = this;
         $.ajax({
             url: CONST.API.BASE_URL + CONST.API.URLS.POSTCODE_SUGGEST,
@@ -48,13 +61,13 @@ class FormPostcode extends Component {
             dataType:"json",
             success: function(response){       
                 if(response.status_text == CONST.API.RESP.SUCCESS.status_text){
-                    console.log('add');
                     var suggestions = response.suggestions;
                     var postcodes = [];
                     for(var sindex = 0; sindex < suggestions.length; sindex++){
                         postcodes.push({
-                            value: suggestions[sindex],
-                            label: suggestions[sindex]
+                            key: suggestions[sindex],
+                            text: suggestions[sindex],
+                            value: suggestions[sindex]
                         })
                     }
 
@@ -65,11 +78,14 @@ class FormPostcode extends Component {
                 else{
                     instance.setState({
                         postcodes: [{
-                            value: 0,
-                            label: ''
+                            key: 0,
+                            text: '',
+                            value: 0
                         }]
                     })
                 }
+                
+                console.log('postcodes', instance.postcodes);
             }
         })
 
@@ -97,12 +113,17 @@ class FormPostcode extends Component {
             <div className={wrap_class}>
                 <label className="form-field__title">{this.props.label}</label>
                 <div className="form-field-row hide--arrow">
-                    <FormSelect
+                    {/* <FormSelect
                         isSearchable={true}
                         options={this.state.postcodes}
                         defaultValue={this.state.dvalue}
                         callbackInput={this.callbackInputChange}
+                        callback={this.props.callback}
                         noOptionsMessage={(input) => "0 results found"}
+                    /> */}
+                    <CustomDropdown
+                        options={this.state.postcodes}
+                        callbackInputChange={this.callbackInputChange}
                     />
                 </div>
                 <label className="form-field__desc">{this.props.msgDesc}</label>

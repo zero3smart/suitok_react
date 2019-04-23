@@ -47,22 +47,24 @@ class FormRadio extends Component {
                 <label className="form-field__title">{this.props.label}</label>
                 <div className="form-field-row align-flex-start">
                     <div className="form-field-col-2">
-                        <label className="form-radio-wrap">Female
+                        <label className="form-radio-wrap">
                             <input type="radio" name="gender" 
                                 value={CONST.FGENDER.FEMALE}
                                 onChange={this.handleChange}
                                 checked={this.state.value === CONST.FGENDER.FEMALE}
                             ></input>
+                            <span>Female</span>
                             <span className="checkmark"></span>
                         </label>
                     </div>
                     <div className="form-field-col-2">
-                        <label className="form-radio-wrap">Male
+                        <label className="form-radio-wrap">
                             <input type="radio" name="gender" 
                                 value={CONST.FGENDER.MALE}
                                 onChange={this.handleChange}
                                 checked={this.state.value === CONST.FGENDER.MALE}
                             ></input>
+                            <span>Male</span>
                             <span className="checkmark"></span>
                         </label>
                     </div>

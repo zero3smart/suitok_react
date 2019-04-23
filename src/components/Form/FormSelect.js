@@ -12,14 +12,20 @@ class FormSelect extends Component {
             value: this.props.value
         }
 
+        this.handleBlur = this.handleBlur.bind(this);
     }
 
     componentDidMount(){
         
     }
+
+    handleBlur(){
+        this.props.callback();
+    }
     
     render() {
         // menuIsOpen={true}
+
         return(
             <div className="select-wrap">
                 <Select
@@ -32,6 +38,7 @@ class FormSelect extends Component {
                     menuShouldBlockScroll={true}
                     isSearchable={this.props.isSearchable}
                     onChange={this.props.callback}
+                    onInputChange={this.props.callbackInput}
                     noOptionsMessage={this.props.noOptionsMessage}
                 />
             </div>

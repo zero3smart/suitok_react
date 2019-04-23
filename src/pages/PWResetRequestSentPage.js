@@ -7,14 +7,8 @@ import ic_flag from '../assets/images/ic_flag.png'
 import ic_logo from '../assets/images/ic_logo.png'
 import ic_arrow_right from '../assets/images/ic_arrow_right.png'
 import ic_arrow_left from '../assets/images/ic_arrow_left.png'
-import ic_btn_facebook from '../assets/images/ic_btn_facebook.png'
-import ic_btn_google from '../assets/images/ic_btn_google.png'
-import ic_btn_twitter from '../assets/images/ic_btn_twitter.png'
 import ic_ok from '../assets/images/ic_ok.png'
-import ic_warning from '../assets/images/ic_warning.png'
-import ic_delete from '../assets/images/ic_delete.png'
 
-import FormInput from '../components/Form/FormInput'
 import CONST from '../global/const'
 
 import $ from 'jquery';
@@ -93,7 +87,7 @@ class PWResetRequestSentPage extends Component {
                             <img className="location-info__flag" src={ic_flag}></img>
                             <span className="">UK, GBP | English</span>
                         </div>
-                        <img className="form-page__logo" src={ic_logo} onClick={() => window.location.href=CONST.PAGE.HOME}></img>
+                        <a href={CONST.PAGE.HOME}><img className="form-page__logo" src={ic_logo}></img></a>
                     </div>
                     
                     <div className="form-container">

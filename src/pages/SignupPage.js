@@ -91,6 +91,8 @@ class SignupPage extends Component {
         this.callbackTerms = this.callbackTerms.bind(this);
 
         this.goLoginPage = this.goLoginPage.bind(this);
+
+        this.refBirth = React.createRef();
     }
 
     componentDidMount(){
@@ -162,8 +164,10 @@ class SignupPage extends Component {
     }
 
     callbackBirth(data){
+        console.log('callback birth', data);
         var fieldError = this.state.fieldError;
-        if(data.year == 0 || data.month == 0 || data.day == 0){
+
+        if((data.year == 0 && data.changedField == 'year') || (data.month == 0 && data.changedField == 'month') || (data.day == 0 && data.changedField == 'day')){
             fieldError.birth = CONST.FIELD_ERR.EMPTY;
         }
         else{
@@ -191,6 +195,7 @@ class SignupPage extends Component {
     }
 
     callbackPostcode(data){
+        console.log('callbackPostcode', data);
         var fieldError = this.state.fieldError;
         if(data === ''){
             fieldError.postcode = CONST.FIELD_ERR.EMPTY;
@@ -266,12 +271,34 @@ class SignupPage extends Component {
             fieldError.last_name = CONST.FIELD_ERR.NONE;
         }
 
-        if(this.state.birth.day === 0 || this.state.birth.month === 0 || this.state.birth.day === 0){
+        if(parseInt(this.state.birth.day) == 0 || parseInt(this.state.birth.month) == 0 || parseInt(this.state.birth.year) == 0){
             bError = true;
             fieldError.birth = CONST.FIELD_ERR.EMPTY;
         }
         else{
             fieldError.birth = CONST.FIELD_ERR.NONE;
+        }
+
+        var newStateBirth = {};
+        if(parseInt(this.state.birth.day) == 0){
+            newStateBirth['col_class_day'] = '';
+        }
+        else{
+            newStateBirth['col_class_day'] = 'not--empty';
+        }
+
+        if(parseInt(this.state.birth.month) == 0){
+            newStateBirth['col_class_month'] = '';
+        }
+        else{
+            newStateBirth['col_class_month'] = 'not--empty';
+        }
+
+        if(parseInt(this.state.birth.year) == 0){
+            newStateBirth['col_class_year'] = '';
+        }
+        else{
+            newStateBirth['col_class_year'] = 'not--empty';
         }
 
         if(this.state.gender === ''){
@@ -303,6 +330,7 @@ class SignupPage extends Component {
                 fieldError: fieldError
             });
 
+            this.refBirth.current.changeState(newStateBirth);
             return;
         }
 
@@ -472,7 +500,7 @@ class SignupPage extends Component {
                             <img className="location-info__flag" src={ic_flag}></img>
                             <span className="">UK, GBP | English</span>
                         </div>
-                        <img className="form-page__logo" src={ic_logo} onClick={() => window.location.href=CONST.PAGE.HOME}></img>
+                        <a href={CONST.PAGE.HOME}><img className="form-page__logo" src={ic_logo}></img></a>
                     </div>
                     
                     <div className="form-container">
@@ -553,6 +581,7 @@ class SignupPage extends Component {
                                     yearMax={2003}
                                     yearMin={1980}
                                     fieldError={this.state.fieldError.birth}
+                                    ref={this.refBirth}
                                 ></FormDate>
                                 <FormRadio
                                     label="Gender"

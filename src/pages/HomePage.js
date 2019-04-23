@@ -228,6 +228,7 @@ class HomePage extends Component {
     }
 
     doSearchBy(type){
+        console.log('dosearchby');
         if(this.state.token === '' && type != CONST.SEARCH.DESC){
             this.showLoginPopup(true);
             return;
