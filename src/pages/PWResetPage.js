@@ -21,7 +21,7 @@ class PWResetPage extends Component {
     static propTypes = {
         cookies: instanceOf(Cookies).isRequired
     };
-    
+
     constructor(props){
         super(props);
 
@@ -31,7 +31,7 @@ class PWResetPage extends Component {
         }
 
         var reset_pw_token = this.props.cookies.get(CONST.COOKIE.RESET_PW_PAGE.TOKEN);
-        
+
         this.state = {
             password: '',
             confirmpassword: '',
@@ -81,7 +81,7 @@ class PWResetPage extends Component {
             fieldError: fieldError
         })
     }
-    
+
     doChangePassword(){
         var instance = this;
         var bError = false;
@@ -121,7 +121,7 @@ class PWResetPage extends Component {
                 token: instance.state.reset_pw_token,
                 password: instance.state.password,
             },
-            success: function(response){                
+            success: function(response){
                 instance.setState({
                     resetResp: response
                 })
@@ -164,7 +164,7 @@ class PWResetPage extends Component {
                         </div>
                         <a href={CONST.PAGE.HOME}><img className="form-page__logo" src={ic_logo}></img></a>
                     </div>
-                    
+
                     <div className={"form-container reset-pw-form " + class_form_state}>
                         <div className="form-type form-type--right-side">
                             <span className="form-type__title from-type--disable form-type--left" onClick={() => window.location.href=CONST.PAGE.SIGNUP}>NEW TO SUITOK.COM?<img className="form-type__icon" src={ic_arrow_right}></img></span>
@@ -181,7 +181,7 @@ class PWResetPage extends Component {
                         </div>
                         <div className="form-fields">
                             <div className="form__title">reset password</div>
-                            <FormInput 
+                            <FormInput
                                 type={CONST.FORM_INPUT.PASSWORD}
                                 label="New Password"
                                 msgErrorEmpty="Your new password is empty"
@@ -191,7 +191,7 @@ class PWResetPage extends Component {
                                 callback={this.callbackPassword}
                                 hasTitle={false}
                             ></FormInput>
-                            <FormInput 
+                            <FormInput
                                 type={CONST.FORM_INPUT.PASSWORD}
                                 label="Confirm New Password"
                                 msgErrorEmpty="Your confirm new password is empty"
@@ -204,7 +204,7 @@ class PWResetPage extends Component {
                                 <div className="form-btn-normal__text">change password</div>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </div>
         );

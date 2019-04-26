@@ -1,30 +1,40 @@
 import React, {Component} from 'react'
-import { Dropdown } from 'semantic-ui-react';
+import PropTypes from 'prop-types'
+import { Dropdown } from 'semantic-ui-react'
+import CONST from '../../global/const'
 import 'semantic-ui-css/semantic.min.css'
 import './CustomDropdown.css'
 
 class CustomDropdown extends Component {
-    
     constructor(props){
         super(props);
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
+        this.handleBlur = this.handleBlur.bind(this);
     }
 
     componentDidMount(){
-        
+        document.querySelector('div[role="combobox"] .search').setAttribute("autocomplete", "off");
+        document.querySelector('div[role="combobox"] .search').setAttribute("autocorrect", "off");
     }
 
     handleChange(event, data){
         console.log('handleChange:', data);
+        this.props.callbackBlur(data.value);
+    }
+
+    handleBlur(event) {
+        console.log('handleBlur');
+        this.props.callbackBlur(document.querySelector('div[role="combobox"] .text').innerText);
     }
 
     handleSearchChange(event, data){
         console.log('handleSearchChange:', data);
+        event.target.setAttribute("autocomplete", "off");
         this.props.callbackInputChange(data.searchQuery);
     }
-    
+
     render() {
         var options = [
             {
@@ -116,11 +126,19 @@ class CustomDropdown extends Component {
                     options={options}
                     onChange={this.handleChange}
                     onSearchChange={this.handleSearchChange}
+                    onBlur={this.handleBlur}
                     noResultsMessage="0 results found"
                 />
             </div>
         );
-        
     }
 }
+
+CustomDropdown.propTypes = {
+    value: PropTypes.string.isRequired,
+    options: PropTypes.array.isRequired,
+    callbackInputChange: PropTypes.func.isRequired,
+    callbackBlur: PropTypes.func.isRequired
+}
+
 export default CustomDropdown

@@ -1,13 +1,11 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import CONST from '../../global/const'
 import FormSelect from './FormSelect'
-
 import CustomDropdown from './CustomDropdown'
-
 import $ from 'jquery'
 
 class FormPostcode extends Component {
-    
     constructor(props){
         super(props);
 
@@ -18,17 +16,30 @@ class FormPostcode extends Component {
                 // label: this.props.value
                 value: this.props.placeholder,
                 label: this.props.placeholder
-            }
+            },
+            field_error: this.props.fieldError
         }
         this.callbackInputChange = this.callbackInputChange.bind(this);
-        // this.callbackBlur = this.callbackBlur.bind(this);
+        this.callbackBlur = this.callbackBlur.bind(this);
     }
 
     componentDidMount(){
     }
 
-    callbackInputChange(value){
+    callbackBlur(value) {
+        if (value === '') {
+            this.setState({
+                field_error: CONST.FIELD_ERR.EMPTY
+            })
+        }
+        else {
+            this.setState({
+                field_error: CONST.FIELD_ERR.NONE
+            })
+        }
+    }
 
+    callbackInputChange(value){
         if(value == ''){
             this.setState({
                 postcodes: []
@@ -59,7 +70,7 @@ class FormPostcode extends Component {
                 'q': value
             },
             dataType:"json",
-            success: function(response){       
+            success: function(response){
                 if(response.status_text == CONST.API.RESP.SUCCESS.status_text){
                     var suggestions = response.suggestions;
                     var postcodes = [];
@@ -73,6 +84,21 @@ class FormPostcode extends Component {
 
                     instance.setState({
                         postcodes: postcodes
+                    }, () => {
+                        let options = document.querySelectorAll('div[role="listbox"] div[role="option"]');
+
+                        if (options != null) {
+                            options.forEach(option => {
+                                let html = option.innerText;
+                                let pos = html.indexOf(value);
+                                if (pos !== -1) {
+                                    let substr = html.substr(pos + value.length);
+                                    let newHtml = '<span class="text">' + html.substr(0, pos + value.length) + '<span style="font-weight: 700">' +
+                                    substr + '</span></span>';
+                                    option.innerHTML = newHtml;
+                                }
+                            });
+                        }
                     })
                 }
                 else{
@@ -84,18 +110,18 @@ class FormPostcode extends Component {
                         }]
                     })
                 }
-                
+
                 console.log('postcodes', instance.postcodes);
             }
         })
 
     }
-    
+
     render() {
 
         var wrap_class = "form-field-wrap";
 
-        if(this.props.hasError || this.props.fieldError === CONST.FIELD_ERR.EMPTY){
+        if (this.state.field_error === CONST.FIELD_ERR.EMPTY || this.props.fieldError === CONST.FIELD_ERR.EMPTY) {
             wrap_class = wrap_class + ' error--empty';
         }
 
@@ -123,14 +149,27 @@ class FormPostcode extends Component {
                     /> */}
                     <CustomDropdown
                         options={this.state.postcodes}
+                        value={this.props.value}
                         callbackInputChange={this.callbackInputChange}
+                        callbackBlur={this.callbackBlur}
                     />
                 </div>
-                <label className="form-field__desc">{this.props.msgDesc}</label>
-                <label className="form-field__error">{this.props.msgErrorEmpty}</label>
+                {/* <label className="form-field__desc">{this.props.msgDesc}</label>
+                <label className="form-field__error">{this.props.msgErrorEmpty}</label> */}
+                <label className="form-field__error">
+                    <div className="msg-error--empty">{this.props.msgErrorEmpty}</div>
+                    <div className="msg-error--check">{this.props.msgErrorCheck}</div>
+                </label>
             </div>
         );
-        
+
     }
 }
+
+FormPostcode.propTypes = {
+    value: PropTypes.string.isRequired,
+    callback: PropTypes.func.isRequired,
+    fieldError: PropTypes.string.isRequired
+}
+
 export default FormPostcode

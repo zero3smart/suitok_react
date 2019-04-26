@@ -28,7 +28,7 @@ class SignupPage extends Component {
     static propTypes = {
         cookies: instanceOf(Cookies).isRequired
     };
-    
+
     constructor(props){
         super(props);
 
@@ -74,7 +74,7 @@ class SignupPage extends Component {
                 status_text: '',
                 message: ''
             },
-            
+
         }
 
         this.doSignup = this.doSignup.bind(this);
@@ -108,7 +108,7 @@ class SignupPage extends Component {
         if(data !== ''){
             fieldError.email = CONST.FIELD_ERR.NONE;
         }
-        
+
         this.setState({
             email: data,
             fieldError: fieldError
@@ -120,7 +120,7 @@ class SignupPage extends Component {
         if(data !== ''){
             fieldError.username = CONST.FIELD_ERR.NONE;
         }
-        
+
         this.setState({
             username: data,
             fieldError: fieldError
@@ -152,11 +152,12 @@ class SignupPage extends Component {
     }
 
     callbackLastName(data){
+        debugger;
         var fieldError = this.state.fieldError;
         if(data !== ''){
             fieldError.last_name = CONST.FIELD_ERR.NONE;
         }
-        
+
         this.setState({
             last_name: data,
             fieldError: fieldError
@@ -223,7 +224,7 @@ class SignupPage extends Component {
         this.setState({
             terms: data,
             fieldError: fieldError
-        })        
+        })
     }
 
     doSignup(){
@@ -349,7 +350,7 @@ class SignupPage extends Component {
                             field: 'username',
                             value: instance.state.username,
                         },
-                        success: function(response){                
+                        success: function(response){
                             if(response.status_text === CONST.API.RESP.SUCCESS.status_text){
                                 resolve_username(response);
                             }
@@ -359,7 +360,7 @@ class SignupPage extends Component {
                         }
                     })
                 })
-    
+
                 promise_check_username.then(function(resp){
                     if(resp.status_text == CONST.API.RESP.SUCCESS.status_text){
                         var fieldError = instance.state.fieldError;
@@ -396,7 +397,7 @@ class SignupPage extends Component {
                         field: 'email',
                         value: instance.state.email,
                     },
-                    success: function(response){                
+                    success: function(response){
                         if(response.status_text === CONST.API.RESP.SUCCESS.status_text){
                             resolve_email(response);
                         }
@@ -428,7 +429,7 @@ class SignupPage extends Component {
                 checkUsername(resp);
             })
 
-            
+
 
         })
 
@@ -453,7 +454,7 @@ class SignupPage extends Component {
                     b_day: instance.state.birth.day,
                     newsletter: instance.state.newsletter ? 'True' : 'False'
                 },
-                success: function(response){                
+                success: function(response){
                     if(response.status_text === CONST.API.RESP.SUCCESS.status_text){
                         instance.props.cookies.set(CONST.COOKIE.SIGNUP_PAGE.USERNAME, response.username);
                         instance.props.cookies.set(CONST.COOKIE.SIGNUP_PAGE.EMAIL, response.email);
@@ -463,13 +464,13 @@ class SignupPage extends Component {
 
                         window.location.href = CONST.PAGE.VERIFICATION_EMAIL;
                     }
-    
+
                 }
             })
         })
-        
+
     }
-    
+
     doResendEmail(){
         var instance = this;
         $.ajax({
@@ -489,7 +490,7 @@ class SignupPage extends Component {
             }
         })
     }
-    
+
     render() {
 
         return(
@@ -502,7 +503,7 @@ class SignupPage extends Component {
                         </div>
                         <a href={CONST.PAGE.HOME}><img className="form-page__logo" src={ic_logo}></img></a>
                     </div>
-                    
+
                     <div className="form-container">
                         <div className="form-type form-type--left-side">
                             <span className="form-type__title form-type--left">NEW TO SUITOK.COM?<img className="form-type__icon" src={ic_arrow_right}></img></span>
@@ -534,7 +535,7 @@ class SignupPage extends Component {
                             </div>
 
                             <div className="form-fields">
-                                <FormInput                                 
+                                <FormInput
                                     label="Email address"
                                     value={this.state.email}
                                     fieldError={this.state.fieldError.email}
@@ -542,7 +543,7 @@ class SignupPage extends Component {
                                     msgErrorCheck="Existing email: Write a new one"
                                     callback={this.callbackEmail}
                                 ></FormInput>
-                                <FormInput 
+                                <FormInput
                                     label="Username"
                                     value={this.state.username}
                                     fieldError={this.state.fieldError.username}
@@ -550,7 +551,7 @@ class SignupPage extends Component {
                                     msgErrorCheck="Existing username: Write a new one"
                                     callback={this.callbackUsername}
                                 ></FormInput>
-                                <FormInput 
+                                <FormInput
                                     type={CONST.FORM_INPUT.PASSWORD}
                                     label="Password"
                                     msgErrorEmpty="Your password is empty"
@@ -559,21 +560,21 @@ class SignupPage extends Component {
                                     fieldError={this.state.fieldError.password}
                                     callback={this.callbackPassword}
                                 ></FormInput>
-                                <FormInput 
+                                <FormInput
                                     label="First Name"
                                     msgErrorEmpty="Your first name is empty"
                                     value={this.state.first_name}
                                     fieldError={this.state.fieldError.first_name}
                                     callback={this.callbackFirstName}
                                 ></FormInput>
-                                <FormInput 
+                                <FormInput
                                     label="Last Name"
                                     msgErrorEmpty="Your last name is empty"
                                     value={this.state.last_name}
                                     fieldError={this.state.fieldError.last_name}
                                     callback={this.callbackLastName}
                                 ></FormInput>
-                                <FormDate 
+                                <FormDate
                                     label="Date of Birth"
                                     msgErrorEmpty="Enter a full date of birth"
                                     value={this.state.birth}
@@ -639,8 +640,8 @@ class SignupPage extends Component {
                                     </div>
                                 </div>
                             </div>
-                        </div>    
-                    </div>               
+                        </div>
+                    </div>
                 </div>
             </div>
         );

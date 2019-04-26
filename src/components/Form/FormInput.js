@@ -5,7 +5,6 @@ import ic_ok from '../../assets/images/ic_ok.png'
 import ic_delete from '../../assets/images/ic_delete.png'
 
 class FormInput extends Component {
-    
     constructor(props){
         super(props);
 
@@ -27,7 +26,7 @@ class FormInput extends Component {
     }
 
     componentDidMount(){
-        
+
     }
 
     switchType(event){
@@ -43,7 +42,7 @@ class FormInput extends Component {
         if(event.target.value === ''){
             this.setState({
                 'value': event.target.value,
-                // 'field_error': CONST.FIELD_ERR.EMPTY
+                'field_error': CONST.FIELD_ERR.EMPTY
             })
         }
         else{
@@ -53,7 +52,7 @@ class FormInput extends Component {
             })
         }
 
-        this.props.callback(event.target.value);
+        //this.props.callback(event.target.value);
     }
 
     handleBlur(event){
@@ -70,10 +69,10 @@ class FormInput extends Component {
             })
         }
     }
-    
-    
+
+
     render() {
-        
+
         var wrap_class = "form-field-wrap";
 
         var ic_form_field = ic_ok;
@@ -103,7 +102,7 @@ class FormInput extends Component {
             if(typeof this.props.hasTitle == 'undefined' || this.props.hasTitle){
                 input_wrap_class = input_wrap_class + ' input--has-title';
             }
-            
+
             wrap_class = wrap_class + ' field--password';
         }
 
@@ -115,7 +114,7 @@ class FormInput extends Component {
             <div className={wrap_class}>
                 <label className="form-field__title">{this.props.label}</label>
                 <div className={input_wrap_class}>
-                    <input type={this.state.input_type} className="" value={this.state.value} 
+                    <input type={this.state.input_type} className="" value={this.state.value}
                         onChange={this.handleChange}
                         onBlur={this.handleBlur}
                     >
@@ -130,7 +129,7 @@ class FormInput extends Component {
                 <label className="form-field__desc">{this.props.msgDesc}</label>
             </div>
         );
-        
+
     }
 }
 export default FormInput

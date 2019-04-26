@@ -9,7 +9,7 @@
 }
 
 
-::-webkit-scrollbar { 
+::-webkit-scrollbar {
   /* display: none;  */
 }
 
@@ -31,10 +31,10 @@ body{
   user-select: none; /* Non-prefixed version, currently
                         supported by Chrome and Opera */
   -webkit-tap-highlight-color: rgba(0,0,0,0);
-  
+
 }
 
-body.show--popup{
+body.show--popup {
   overflow: hidden;
 }
 
@@ -44,12 +44,12 @@ body.show--popup{
   margin: auto;
 }
 
-.header{
+.header {
   display: flex;
   display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
   display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
   display: -ms-flexbox;      /* TWEENER - IE 10 */
-  display: -webkit-flex; 
+  display: -webkit-flex;
   justify-content: space-between;
   z-index: 10;
   position: absolute;
@@ -57,31 +57,31 @@ body.show--popup{
   left: calc(50% - 650px);
 }
 
-.header-logo{
+.header-logo {
   text-decoration: none;
   width: 196px;
   display: inline-block;
   text-align: center;
 }
 
-.header-logo__img{
+.header-logo__img {
   width: 100%;
 }
 
-.header-menu{
+.header-menu {
   display: flex;
   align-items: center;
   align-items: flex-start;
   justify-content: space-between;
 }
 
-.header-menu-item{
+.header-menu-item {
   padding: 0px 17px;
   cursor: pointer;
   position: relative;
 }
 
-.header-menu-item:last-of-type{
+.header-menu-item:last-of-type {
   padding-right: 0px;
 }
 
@@ -573,8 +573,8 @@ body.show--popup{
 
 .ump-wrap:before{
   content: '';
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   top: -10px;
   position: absolute;
   left: calc(50% - 10px);
@@ -966,7 +966,7 @@ body.show--popup{
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: flex-start; 
+  justify-content: flex-start;
 }
 
 .lp-social-btn__icon{
@@ -994,7 +994,7 @@ body.show--popup{
 .lp-btn-outline {
   margin-top: 10px;
   border: 1px solid #000000;
-  padding: 8px;  
+  padding: 8px;
   cursor: pointer;
   position: relative;
   padding-top: 6.64px;
@@ -1138,7 +1138,7 @@ body.show--popup{
 }
 
 .form-page{
-  background-color: #EEEEEE; 
+  background-color: #EEEEEE;
   padding-bottom: 89px;
 }
 
@@ -1557,6 +1557,7 @@ select{
 /* When the radio button is checked, add a blue background */
 .form-radio-wrap input:checked ~ .checkmark {
   /* background-color: #2196F3; */
+  position: absolute;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -1571,18 +1572,50 @@ select{
   display: block;
 }
 
-.form-radio-wrap:hover input:checked ~ .checkmark:after{
-  left: 1.65px;
-  top: 1.65px;
-  width: 9.76px;
-  height: 9.76px;
+.form-radio-wrap:hover input:checked ~ .checkmark.female:after{
+  left: 54%;
+  top: 50%;
+  position: relative;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  width: 0.5em;
+  height: 0.5em;
 }
 /* Style the indicator (dot/circle) */
-.form-radio-wrap .checkmark:after {
-  top: 2.65px;
-  left: 2.65px;
-  width: 9.76px;
-  height: 9.76px;
+.form-radio-wrap .checkmark.female:after {
+  top: 50%;
+  left: 54%;
+  width: 0.5em;
+  height: 0.5em;
+  position: relative;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #010101;
+}
+
+.form-radio-wrap:hover input:checked ~ .checkmark.male:after{
+  left: 50%;
+  top: 50%;
+  position: relative;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  width: 0.5em;
+  height: 0.5em;
+}
+/* Style the indicator (dot/circle) */
+.form-radio-wrap .checkmark.male:after {
+  top: 50%;
+  left: 50%;
+  width: 0.5em;
+  height: 0.5em;
+  position: relative;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
   border-radius: 50%;
   background: #010101;
 }
@@ -1638,6 +1671,7 @@ select{
 /* When the checkbox is checked, add a blue background */
 .form-check-wrap input:checked ~ .checkmark {
   /* background-color: #2196F3; */
+  position: absolute;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -1657,23 +1691,18 @@ select{
 }
 
 .form-check-wrap:hover input:checked ~ .checkmark:after{
-  left: 3px;
-  top: -1px;
-  top: 0px;
+  left: 0.25em;
+  top: 0em;
 }
 
 /* Style the checkmark/indicator */
 .form-check-wrap .checkmark:after {
-  left: 4px;
-  top: 0px;
-  width: 3px;
-  height: 7px;
-  left: 4px;
-  top: 1px;
-  width: 5px;
-  height: 9px;
+  left: 0.31em;
+  top: 0.1em;
+  width: 0.4em;
+  height: 0.7em;
   border: solid #F36A22;
-  border-width: 0 3px 3px 0;
+  border-width: 0 0.23em 0.23em 0;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
@@ -1702,7 +1731,6 @@ select{
 }
 
 .form-btn-normal__text{
-  z-index: 10;
   position: relative;
 }
 
@@ -2588,7 +2616,7 @@ select{
 
   .form-container{
     width: 390px;
-    padding: 15px 24.57px 36px 20px; 
+    padding: 15px 24.57px 36px 20px;
   }
 
   .form-fields{
@@ -2746,10 +2774,14 @@ select{
   }
 
   .form-check-wrap .checkmark:after{
-    left: 3px;
-    top: 0px;
-    width: 2px;
-    height: 6px;
+    left: 0.31em;
+    top: 0.1em;
+    width: 0.4em;
+    height: 0.7em;
+    border: solid #F36A22;
+    border-width: 0 0.23em 0.23em 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
   }
 
   .form-warning__title{
@@ -2939,6 +2971,10 @@ select{
   .sent-email-form__title1 {
     margin-bottom: 11px;
   }
+
+  .custom-dropdown-container .ui.selection.active.dropdown .menu{
+    max-height: 16.02857143rem !important;
+  }
 }
 /*767px*/
 
@@ -2968,7 +3004,7 @@ select{
   .footer{
     padding-top: 10px;
   }
-  
+
   .hcb-gender-menu li:first-of-type{
     padding-left: 0px;
   }
@@ -2996,7 +3032,7 @@ select{
   .header-menu-item:first-of-type{
     padding-right: 0px;
   }
-  
+
   .header-menu-item .icon--mobile-nav{
     display: block;
   }
@@ -3145,7 +3181,7 @@ select{
   .login-form .form__title{
     margin-bottom: 13px;
   }
-  
+
   .login-page .form-field-wrap .form-field__error{
     height: 12px;
   }
@@ -3191,6 +3227,10 @@ select{
     margin-top: 14px;
     padding: 8.5px;
   }
+
+  .custom-dropdown-container .ui.selection.active.dropdown .menu{
+    max-height: 11.02857143rem !important;
+  }
 }
 /*479px*/
 
@@ -3199,6 +3239,10 @@ select{
     width: 100%;
     text-align: left;
     margin-top: 20px;
+  }
+
+  .custom-dropdown-container .ui.selection.active.dropdown .menu{
+    max-height: 11.02857143rem !important;
   }
 }
 /*349px*/
@@ -3215,6 +3259,10 @@ select{
 
   .form-type{
     width: 100%;
+  }
+
+  .custom-dropdown-container .ui.selection.active.dropdown .menu{
+      max-height: 11.02857143rem !important;
   }
 }
 /*317px*/

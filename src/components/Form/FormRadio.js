@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import CONST from '../../global/const'
 
 class FormRadio extends Component {
-    
+
     constructor(props){
         super(props);
         this.state = {
@@ -16,14 +16,14 @@ class FormRadio extends Component {
     }
 
     handleChange(event){
-        
+
         this.setState({
             value: event.target.value
         });
 
         this.props.callback(event.target.value);
     }
-    
+
     render() {
 
         var wrap_class = "form-field-wrap";
@@ -48,31 +48,32 @@ class FormRadio extends Component {
                 <div className="form-field-row align-flex-start">
                     <div className="form-field-col-2">
                         <label className="form-radio-wrap">
-                            <input type="radio" name="gender" 
+                            <input type="radio" name="gender"
                                 value={CONST.FGENDER.FEMALE}
                                 onChange={this.handleChange}
                                 checked={this.state.value === CONST.FGENDER.FEMALE}
                             ></input>
                             <span>Female</span>
-                            <span className="checkmark"></span>
+                            <span className="checkmark female"></span>
                         </label>
                     </div>
                     <div className="form-field-col-2">
                         <label className="form-radio-wrap">
-                            <input type="radio" name="gender" 
+                            <input type="radio" name="gender"
                                 value={CONST.FGENDER.MALE}
                                 onChange={this.handleChange}
                                 checked={this.state.value === CONST.FGENDER.MALE}
                             ></input>
                             <span>Male</span>
-                            <span className="checkmark"></span>
+                            <span className="checkmark male"></span>
                         </label>
                     </div>
                 </div>
                 <label className="form-field__error">{this.props.msgErrorEmpty}</label>
             </div>
         );
-        
+
     }
 }
+
 export default FormRadio
