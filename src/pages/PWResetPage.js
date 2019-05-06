@@ -184,7 +184,7 @@ class PWResetPage extends Component {
                             <FormInput
                                 type={CONST.FORM_INPUT.PASSWORD}
                                 label="New Password"
-                                msgErrorEmpty="Your new password is empty"
+                                msgError="Your new password is empty"
                                 msgDesc="Must be 8 or more characters and contain at least 1 number"
                                 value={this.state.password}
                                 fieldError={this.state.fieldError.password}
@@ -194,7 +194,7 @@ class PWResetPage extends Component {
                             <FormInput
                                 type={CONST.FORM_INPUT.PASSWORD}
                                 label="Confirm New Password"
-                                msgErrorEmpty="Your confirm new password is empty"
+                                msgError="Your confirm new password is empty"
                                 value={this.state.password}
                                 fieldError={this.state.fieldError.confirmpassword}
                                 callback={this.callbackConfirmPassword}

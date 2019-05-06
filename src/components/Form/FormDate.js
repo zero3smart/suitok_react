@@ -4,10 +4,10 @@ import CustomSelect from './CustomSelect'
 import CONST from '../../global/const'
 
 class FormDate extends Component {
-    
+
     constructor(props){
         super(props);
-        
+
         this.days = [];
         this.days.push({
             value: 0,
@@ -26,18 +26,18 @@ class FormDate extends Component {
         }
 
         this.months = [
-            { value: 0, label: 'Month'}, 
-            { value: 1, label: 'January'}, 
-            { value: 2, label: 'February'}, 
-            { value: 3, label: 'March'}, 
-            { value: 4, label: 'April'}, 
-            { value: 5, label: 'May'}, 
-            { value: 6, label: 'June'}, 
-            { value: 7, label: 'July'}, 
-            { value: 8, label: 'August'}, 
-            { value: 9, label: 'September'}, 
-            { value: 10, label: 'October'}, 
-            { value: 11, label: 'November'}, 
+            { value: 0, label: 'Month'},
+            { value: 1, label: 'January'},
+            { value: 2, label: 'February'},
+            { value: 3, label: 'March'},
+            { value: 4, label: 'April'},
+            { value: 5, label: 'May'},
+            { value: 6, label: 'June'},
+            { value: 7, label: 'July'},
+            { value: 8, label: 'August'},
+            { value: 9, label: 'September'},
+            { value: 10, label: 'October'},
+            { value: 11, label: 'November'},
             { value: 12, label: 'December'}
         ];
         var month_label = '';
@@ -251,10 +251,10 @@ class FormDate extends Component {
                         />
                     </div>
                 </div>
-                <label className="form-field__error">{this.props.msgErrorEmpty}</label>
+                <label className="form-field__error">{this.props.msgError}</label>
             </div>
         );
-        
+
     }
 }
 export default FormDate

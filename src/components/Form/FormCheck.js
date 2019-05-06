@@ -3,7 +3,7 @@ import CONST from '../../global/const'
 import { callbackify } from 'util';
 
 class FormCheck extends Component {
-    
+
     constructor(props){
         super(props);
         this.state = {
@@ -17,14 +17,14 @@ class FormCheck extends Component {
     }
 
     handleCheckbox(){
-        
+
         this.setState({
             value: !this.state.value
         })
 
         this.props.callback(!this.state.value);
     }
-    
+
     render() {
 
         var wrap_class = "form-field-wrap field--checkbox";
@@ -36,7 +36,7 @@ class FormCheck extends Component {
         if(this.props.hasOwnProperty('hasErrorField') && !this.props.hasErrorField){
             wrap_class = wrap_class + ' no--errorField';
         }
-        
+
         if(this.props.msgDesc && this.props.msgDesc !== ''){
             wrap_class = wrap_class + ' has--description';
         }
@@ -57,10 +57,10 @@ class FormCheck extends Component {
                         </label>
                     </div>
                 </div>
-                <label className="form-field__error">{this.props.msgErrorEmpty}</label>
+                <label className="form-field__error">{this.props.msgError}</label>
             </div>
         );
-        
+
     }
 }
 export default FormCheck

@@ -19,6 +19,7 @@ class FormPostcode extends Component {
             },
             field_error: this.props.fieldError
         }
+
         this.callbackInputChange = this.callbackInputChange.bind(this);
         this.callbackBlur = this.callbackBlur.bind(this);
     }
@@ -37,10 +38,12 @@ class FormPostcode extends Component {
                 field_error: CONST.FIELD_ERR.NONE
             })
         }
+
+        this.props.callback(value);
     }
 
     callbackInputChange(value){
-        if(value == ''){
+        if (value == '') {
             this.setState({
                 postcodes: []
             })
@@ -155,9 +158,9 @@ class FormPostcode extends Component {
                     />
                 </div>
                 {/* <label className="form-field__desc">{this.props.msgDesc}</label>
-                <label className="form-field__error">{this.props.msgErrorEmpty}</label> */}
+                <label className="form-field__error">{this.props.msgError}</label> */}
                 <label className="form-field__error">
-                    <div className="msg-error--empty">{this.props.msgErrorEmpty}</div>
+                    <div className="msg-error--empty">{this.props.msgError}</div>
                     <div className="msg-error--check">{this.props.msgErrorCheck}</div>
                 </label>
             </div>

@@ -1,6 +1,6 @@
 const PAGE_URL = {
     HOME: '/',
-    
+
     LOGIN: '/login',
     SIGNUP: '/signup',
 
@@ -89,6 +89,7 @@ const FIELD_ERROR = {
     INCORRECT: 'incorrect',
     EXIST: 'exist',
     NONE: '',
+    INVALID: 'invalid',
     CHECK_ERROR: 'check_error',
     CHECK_OK: 'check_ok',
 }
@@ -102,7 +103,7 @@ const SEARCH_BY = {
 const API_INFO = {
     BASE_URL: 'http://176.9.17.3:5001',
     KEY: '1d3fcef8-f4f3-4a11-b64c-87b4da46cb17',
-    
+
     URLS: {
         LOGIN: '/login',
 
@@ -129,9 +130,12 @@ const API_INFO = {
         SUCCESS: {
             status_text: 'SUCCESS',
         },
+        OK: {
+            status_text: 'OK',
+        },
         ERROR: {
             status_text: 'ERROR',
-            
+
             message_unauthorized: 'Unauthorized',
             message_could_not_verify: 'could not verify your login',
             message_internal_error: 'internal error occured',

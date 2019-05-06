@@ -1401,7 +1401,7 @@ body.show--popup {
 }
 
 .form-field-wrap.check--error .form-field__error .msg-error--empty{
-  display:none;
+  /* display:none; */
 }
 
 .form-field-wrap.check--error .form-field__error .msg-error--check{
@@ -1420,10 +1420,14 @@ body.show--popup {
 }
 
 .form-field__icon{
-  /* display: none; */
   width: 22px;
   height: 22px;
   display: none;
+}
+
+.check--ok .form-field__icon,
+.check--error .form-field__icon {
+  display: block;
 }
 
 .input--has-icon .form-field__icon{
@@ -1538,8 +1542,8 @@ select{
   position: absolute;
   top: 0;
   left: 0;
-  height: 17px;
-  width: 17px;
+  height: 1.286em;
+  width: 1.286em;
   background-color: transparent;
   border:1px solid #000000;
   border-radius: 50%;
@@ -1573,7 +1577,7 @@ select{
 }
 
 .form-radio-wrap:hover input:checked ~ .checkmark.female:after{
-  left: 54%;
+  left: 50%;
   top: 50%;
   position: relative;
   transform: translate(-50%, -50%);
@@ -1585,7 +1589,7 @@ select{
 /* Style the indicator (dot/circle) */
 .form-radio-wrap .checkmark.female:after {
   top: 50%;
-  left: 54%;
+  left: 50%;
   width: 0.5em;
   height: 0.5em;
   position: relative;

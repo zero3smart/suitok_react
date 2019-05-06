@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-
 import {Cookies, withCookies} from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import ic_flag from '../assets/images/ic_flag.png'
@@ -9,7 +8,6 @@ import ic_arrow_left from '../assets/images/ic_arrow_left.png'
 import ic_btn_facebook from '../assets/images/ic_btn_facebook.png'
 import ic_btn_google from '../assets/images/ic_btn_google.png'
 import ic_btn_twitter from '../assets/images/ic_btn_twitter.png'
-
 import ic_closet from '../assets/images/ic_closet_black.png'
 import ic_likes from '../assets/images/ic_likes.png'
 import ic_reviews from '../assets/images/ic_reviews.png'
@@ -70,11 +68,22 @@ class SignupPage extends Component {
                 terms: CONST.FIELD_ERR.NONE
             },
 
+            msgError: {
+                email: 'Your email is empty',
+                username: 'Your username is empty',
+                password: 'Your password is empty',
+                first_name: 'Your first name is empty',
+                last_name: 'Your last name is empty',
+                gender: 'Select your gender',
+                postcode: 'Your postcode is empty',
+                birth: 'Enter a full date of birth',
+                terms: 'You must agree to our Terms & Conditions and Privacy & Cookie Policy'
+            },
+
             resendResp: {
                 status_text: '',
                 message: ''
             },
-
         }
 
         this.doSignup = this.doSignup.bind(this);
@@ -104,64 +113,231 @@ class SignupPage extends Component {
     }
 
     callbackEmail(data){
-        var fieldError = this.state.fieldError;
-        if(data !== ''){
-            fieldError.email = CONST.FIELD_ERR.NONE;
-        }
+        const { fieldError, msgError } = this.state;
 
-        this.setState({
-            email: data,
-            fieldError: fieldError
-        })
+        var instance = this;
+
+        if (data === '') {
+            fieldError.email = CONST.FIELD_ERR.EMPTY;
+            msgError.email = 'Your email is empty';
+
+            instance.setState({
+                email: data,
+                fieldError: fieldError,
+                msgError: msgError
+            })
+        } else if (instance.validateEmail(data) === false) {
+            fieldError.email = CONST.FIELD_ERR.CHECK_ERROR;
+            msgError.email = 'Invalid email format';
+
+            instance.setState({
+                email: data,
+                fieldError: fieldError,
+                msgError: msgError
+            })
+
+        } else {
+            $.ajax({
+                url: CONST.API.BASE_URL + CONST.API.URLS.CHECK_EXISTENCE,
+                type: 'GET',
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-API-KEY': CONST.API.KEY
+                },
+                data: {
+                    field: 'email',
+                    value: data,
+                },
+                success: function (response) {
+                    if (response.status_text === CONST.API.RESP.SUCCESS.status_text) {
+                        fieldError.email = CONST.FIELD_ERR.CHECK_OK;
+                        msgError.email = '';
+
+                        instance.setState({
+                            email: data,
+                            fieldError: fieldError,
+                            msgError: msgError
+                        })
+                    }
+                    else {
+                        fieldError.email = CONST.FIELD_ERR.CHECK_ERROR;
+                        msgError.email = 'Existing email. Write a new one';
+
+                        instance.setState({
+                            email: data,
+                            fieldError: fieldError,
+                            msgError: msgError
+                        });
+                    }
+                }
+            })
+        }
+    }
+
+    validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
     }
 
     callbackUsername(data){
-        var fieldError = this.state.fieldError;
-        if(data !== ''){
-            fieldError.username = CONST.FIELD_ERR.NONE;
-        }
+        const { fieldError, msgError } = this.state;
 
-        this.setState({
-            username: data,
-            fieldError: fieldError
-        })
+        var regExp = /^[a-zA-Z0-9_]+$/g;
+
+        /*fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-API-KEY': CONST.API.KEY
+                },
+            }).then(responseJson => {
+                if (responseJson.statusText === CONST.API.RESP.OK.status_text) {
+                    if (regExp.test(data) === false) {
+                        fieldError.username = CONST.FIELD_ERR.INVALID;
+                        msgError.username = 'Invalid username format';
+                    } else if (data === '') {
+                        fieldError.username = CONST.FIELD_ERR.EMPTY;
+                        msgError.username = 'Your username is empty';
+                    } else {
+                        fieldError.username = CONST.FIELD_ERR.CHECK_OK;
+                        msgError.username = '';
+                    }
+
+                    this.setState({
+                        username: data,
+                        fieldError: fieldError,
+                        msgError: msgError
+                    });
+                }
+            })
+            .catch(error => {
+                fieldError.username = CONST.FIELD_ERR.CHECK_ERROR;
+                msgError.username = 'Existing username. Write a new one';
+
+                this.setState({
+                    username: data,
+                    fieldError: fieldError,
+                    msgError: msgError
+                });
+            });*/
+
+        var instance = this;
+
+        if (data === '') {
+            fieldError.username = CONST.FIELD_ERR.EMPTY;
+            msgError.username = 'Your username is empty';
+
+            instance.setState({
+                username: data,
+                fieldError: fieldError,
+                msgError: msgError
+            });
+        } else if (regExp.test(data) === false) {
+            fieldError.username = CONST.FIELD_ERR.CHECK_ERROR;
+            msgError.username = 'Invalid username format';
+
+            instance.setState({
+                username: data,
+                fieldError: fieldError,
+                msgError: msgError
+            });
+        } else {
+            $.ajax({
+                url: CONST.API.BASE_URL + CONST.API.URLS.CHECK_EXISTENCE,
+                type: 'GET',
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-API-KEY': CONST.API.KEY
+                },
+                data: {
+                    field: 'username',
+                    value: data,
+                },
+                success: function (response) {
+                    if (response.status_text === CONST.API.RESP.SUCCESS.status_text) {
+
+                        fieldError.username = CONST.FIELD_ERR.CHECK_OK;
+                        msgError.username = '';
+
+                        instance.setState({
+                            username: data,
+                            fieldError: fieldError,
+                            msgError: msgError
+                        });
+                    }
+                    else {
+                        fieldError.username = CONST.FIELD_ERR.CHECK_ERROR;
+                        msgError.username = 'Existing username. Write a new one';
+
+                        instance.setState({
+                            username: data,
+                            fieldError: fieldError,
+                            msgError: msgError
+                        });
+                    }
+                }
+            })
+        }
     }
 
     callbackPassword(data){
-        var fieldError = this.state.fieldError;
-        if(data !== ''){
+        const { fieldError, msgError } = this.state;
+        var regExp = /^(?=.*\d)[0-9a-zA-Z]{8,100}$/;
+
+        if (data === '') {
+            fieldError.password = CONST.FIELD_ERR.EMPTY;
+            msgError.password = 'Your password is empty';
+        } else if (regExp.test(data) === false) {
+            fieldError.password = CONST.FIELD_ERR.INVALID;
+            msgError.password = 'Invalid password format';
+        } else {
             fieldError.password = CONST.FIELD_ERR.NONE;
+            msgError.password = '';
         }
 
         this.setState({
             password: data,
-            fieldError: fieldError
-        })
+            fieldError: fieldError,
+            msgError: msgError
+        });
     }
 
     callbackFirstName(data){
-        var fieldError = this.state.fieldError;
-        if(data !== ''){
+        const { fieldError, msgError } = this.state;
+
+        if (data === '') {
+            fieldError.first_name = CONST.FIELD_ERR.EMPTY;
+            msgError.first_name = 'Your first name is empty';
+        } else {
             fieldError.first_name = CONST.FIELD_ERR.NONE;
+            msgError.first_name = '';
         }
 
         this.setState({
             first_name: data,
-            fieldError: fieldError
-        })
+            fieldError: fieldError,
+            msgError: msgError
+        });
     }
 
     callbackLastName(data){
-        debugger;
-        var fieldError = this.state.fieldError;
-        if(data !== ''){
+        const { fieldError, msgError } = this.state;
+
+        if (data === '') {
+            fieldError.last_name = CONST.FIELD_ERR.EMPTY;
+            msgError.last_name = 'Your last name is empty';
+        } else {
             fieldError.last_name = CONST.FIELD_ERR.NONE;
+            msgError.last_name = '';
         }
 
         this.setState({
             last_name: data,
-            fieldError: fieldError
-        })
+            fieldError: fieldError,
+            msgError: msgError
+        });
     }
 
     callbackBirth(data){
@@ -197,17 +373,21 @@ class SignupPage extends Component {
 
     callbackPostcode(data){
         console.log('callbackPostcode', data);
-        var fieldError = this.state.fieldError;
+        var { fieldError, msgError } = this.state;
+
         if(data === ''){
             fieldError.postcode = CONST.FIELD_ERR.EMPTY;
+            msgError.postcode = "Your postcode is empty";
         }
-        else{
+        else {
             fieldError.postcode = CONST.FIELD_ERR.NONE;
+            msgError.postcode = "";
         }
 
         this.setState({
-            postcode: data.value,
-            fieldError: fieldError
+            postcode: data,
+            fieldError: fieldError,
+            msgError: msgError
         })
     }
 
@@ -236,48 +416,30 @@ class SignupPage extends Component {
             bError = true;
             fieldError.email = CONST.FIELD_ERR.EMPTY;
         }
-        else{
-            fieldError.email = CONST.FIELD_ERR.NONE;
-        }
 
         if(this.state.username === ''){
             bError = true;
             fieldError.username = CONST.FIELD_ERR.EMPTY;
-        }
-        else{
-            fieldError.username = CONST.FIELD_ERR.NONE;
         }
 
         if(this.state.password === ''){
             bError = true;
             fieldError.password = CONST.FIELD_ERR.EMPTY;
         }
-        else{
-            fieldError.password = CONST.FIELD_ERR.NONE;
-        }
 
         if(this.state.first_name === ''){
             bError = true;
             fieldError.first_name = CONST.FIELD_ERR.EMPTY;
-        }
-        else{
-            fieldError.first_name = CONST.FIELD_ERR.NONE;
         }
 
         if(this.state.last_name === ''){
             bError = true;
             fieldError.last_name = CONST.FIELD_ERR.EMPTY;
         }
-        else{
-            fieldError.last_name = CONST.FIELD_ERR.NONE;
-        }
 
         if(parseInt(this.state.birth.day) == 0 || parseInt(this.state.birth.month) == 0 || parseInt(this.state.birth.year) == 0){
             bError = true;
             fieldError.birth = CONST.FIELD_ERR.EMPTY;
-        }
-        else{
-            fieldError.birth = CONST.FIELD_ERR.NONE;
         }
 
         var newStateBirth = {};
@@ -428,9 +590,6 @@ class SignupPage extends Component {
                 }
                 checkUsername(resp);
             })
-
-
-
         })
 
         promise_check_existence.then(function(resp){
@@ -461,7 +620,6 @@ class SignupPage extends Component {
                         instance.props.cookies.set(CONST.COOKIE.SIGNUP_PAGE.NEEDS_VERIFICATION, true);
                         // instance.props.cookies.set(CONST.COOKIE.GLOBAL.USERNMAE, response.username);
                         // instance.props.cookies.set(CONST.COOKIE.GLOBAL.GENDER, response.gender);
-
                         window.location.href = CONST.PAGE.VERIFICATION_EMAIL;
                     }
 
@@ -539,7 +697,7 @@ class SignupPage extends Component {
                                     label="Email address"
                                     value={this.state.email}
                                     fieldError={this.state.fieldError.email}
-                                    msgErrorEmpty="Your email/username is empty"
+                                    msgError={this.state.msgError.email}
                                     msgErrorCheck="Existing email: Write a new one"
                                     callback={this.callbackEmail}
                                 ></FormInput>
@@ -547,14 +705,14 @@ class SignupPage extends Component {
                                     label="Username"
                                     value={this.state.username}
                                     fieldError={this.state.fieldError.username}
-                                    msgErrorEmpty="Your username is empty"
+                                    msgError={this.state.msgError.username}
                                     msgErrorCheck="Existing username: Write a new one"
                                     callback={this.callbackUsername}
                                 ></FormInput>
                                 <FormInput
                                     type={CONST.FORM_INPUT.PASSWORD}
                                     label="Password"
-                                    msgErrorEmpty="Your password is empty"
+                                    msgError={this.state.msgError.password}
                                     msgDesc="Must be 8 or more characters and contain at least 1 number"
                                     value={this.state.password}
                                     fieldError={this.state.fieldError.password}
@@ -562,21 +720,23 @@ class SignupPage extends Component {
                                 ></FormInput>
                                 <FormInput
                                     label="First Name"
-                                    msgErrorEmpty="Your first name is empty"
+                                    msgError={this.state.msgError.first_name}
                                     value={this.state.first_name}
                                     fieldError={this.state.fieldError.first_name}
                                     callback={this.callbackFirstName}
+                                    maxLength={100}
                                 ></FormInput>
                                 <FormInput
                                     label="Last Name"
-                                    msgErrorEmpty="Your last name is empty"
+                                    msgError={this.state.msgError.last_name}
                                     value={this.state.last_name}
                                     fieldError={this.state.fieldError.last_name}
                                     callback={this.callbackLastName}
+                                    maxLength={100}
                                 ></FormInput>
                                 <FormDate
                                     label="Date of Birth"
-                                    msgErrorEmpty="Enter a full date of birth"
+                                    msgError={this.state.msgError.birth}
                                     value={this.state.birth}
                                     callback={this.callbackBirth}
                                     yearMax={2003}
@@ -586,7 +746,7 @@ class SignupPage extends Component {
                                 ></FormDate>
                                 <FormRadio
                                     label="Gender"
-                                    msgErrorEmpty="Select your gender"
+                                    msgError={this.state.msgError.gender}
                                     value={this.state.gender}
                                     callback={this.callbackGender}
                                     fieldError={this.state.fieldError.gender}
@@ -594,7 +754,7 @@ class SignupPage extends Component {
                                 <FormPostcode
                                     label="Postcode"
                                     placeholder="e.g. TW19 5NW"
-                                    msgErrorEmpty="Your postcode is empty"
+                                    msgError={this.state.msgError.postcode}
                                     value={this.state.postcode}
                                     callback={this.callbackPostcode}
                                     fieldError={this.state.fieldError.postcode}
@@ -608,7 +768,7 @@ class SignupPage extends Component {
                                     ></FormCheck>
                                     <FormCheck
                                         label="By creating a SUITOK account you agree to our Terms & Conditions and Privacy & Cookie Policy"
-                                        msgErrorEmpty="You must agree to our Terms & Conditions and Privacy & Cookie Policy"
+                                        msgError={this.state.msgError.terms}
                                         fieldError={this.state.fieldError.terms}
                                         value={this.state.terms}
                                         callback={this.callbackTerms}

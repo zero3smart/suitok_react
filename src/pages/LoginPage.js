@@ -24,7 +24,7 @@ class LoginPage extends Component {
     static propTypes = {
         cookies: instanceOf(Cookies).isRequired
     };
-    
+
     constructor(props){
         super(props);
 
@@ -63,7 +63,7 @@ class LoginPage extends Component {
         if(data !== ''){
             fieldError.username = CONST.FIELD_ERR.NONE;
         }
-        
+
         this.setState({
             username: data,
             fieldError: fieldError
@@ -75,7 +75,7 @@ class LoginPage extends Component {
         if(data !== ''){
             fieldError.password = CONST.FIELD_ERR.NONE;
         }
-        
+
         this.setState({
             password: data,
             fieldError: fieldError
@@ -116,7 +116,7 @@ class LoginPage extends Component {
                 username: instance.state.username,
                 password: instance.state.password,
             },
-            success: function(response){                
+            success: function(response){
                 if(response.status_text === CONST.API.RESP.SUCCESS.status_text){
                     instance.setState({
                         formtype: CONST.FORM.SIGNUP_SENT,
@@ -140,7 +140,7 @@ class LoginPage extends Component {
             }
         })
     }
-    
+
     render() {
 
         var class_show_alert = '';
@@ -151,7 +151,7 @@ class LoginPage extends Component {
             if(this.state.loginMessage == CONST.API.RESP.WARNING.message_invalid_credentials){
                 error_msg_html = 'The email/username or password you entered is incorrect. Please try again!';
             }
-            
+
             if(this.state.loginMessage == CONST.API.RESP.WARNING.message_user_pending_confirmation){
                 error_msg_html = 'Your account is currently Awaiting confirmation. Confirmation was sent to ' + this.state.loginEmail + '. <br><br> Please check your email, or <a className="lp-error__text--link" href="' + CONST.PAGE.CONFIRM_EMAIL + '">click here to resend confimation email</a>'
             }
@@ -166,7 +166,7 @@ class LoginPage extends Component {
                         </div>
                         <a href={CONST.PAGE.HOME}><img className="form-page__logo" src={ic_logo}></img></a>
                     </div>
-                    
+
                     <div className="form-container login-form">
                         <div className="form-type form-type--right-side">
                             <span className="form-type__title from-type--disable form-type--left" onClick={() => window.location.href=CONST.PAGE.SIGNUP}>NEW TO SUITOK.COM?<img className="form-type__icon" src={ic_arrow_right}></img></span>
@@ -183,20 +183,20 @@ class LoginPage extends Component {
                                 <img className="form-warning__icon" src={ic_warning}></img>
                                 <div className="form-warning__title">{Parser(error_msg_html)}</div>
                             </div>
-                            <FormInput 
+                            <FormInput
                                 hasError={false}
                                 value={this.state.username}
                                 fieldError={this.state.fieldError.username}
                                 label="Email or Username"
-                                msgErrorEmpty="Your email/username is empty"
+                                msgError="Your email/username is empty"
                                 callback={this.callbackUsername}
                             ></FormInput>
-                            <FormInput 
+                            <FormInput
                                 value={this.state.password}
                                 type={CONST.FORM_INPUT.PASSWORD}
                                 fieldError={this.state.fieldError.password}
                                 label="Password"
-                                msgErrorEmpty="Your password is empty"
+                                msgError="Your password is empty"
                                 callback={this.callbackPassword}
                             ></FormInput>
                             <div className="form-button" onClick={this.doLogin}>
@@ -226,8 +226,8 @@ class LoginPage extends Component {
                                 </div>
                             </div>
                         </div>
-                        
-                    </div>                    
+
+                    </div>
                 </div>
             </div>
         );

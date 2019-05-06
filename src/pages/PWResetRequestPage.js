@@ -21,7 +21,7 @@ class PWResetRequestPage extends Component {
     static propTypes = {
         cookies: instanceOf(Cookies).isRequired
     };
-    
+
     constructor(props){
         super(props);
 
@@ -49,13 +49,13 @@ class PWResetRequestPage extends Component {
         if(data !== ''){
             fieldError.email = CONST.FIELD_ERR.NONE;
         }
-        
+
         this.setState({
             email: data,
             fieldError: fieldError
         })
     }
-    
+
     doResetPasswordRequest(){
         var instance = this;
         var bError = false;
@@ -87,11 +87,11 @@ class PWResetRequestPage extends Component {
             data: {
                 email: instance.state.email,
             },
-            success: function(response){         
+            success: function(response){
                 if(response.status_text === CONST.API.RESP.SUCCESS.status_text){
                     // instance.props.cookies.set(CONST.COOKIE.GLOBAL.USERNMAE, response.username);
                     instance.props.cookies.set(CONST.COOKIE.RESET_PW_PAGE.EMAIL, response.email);
-                    
+
                     window.location.href = CONST.PAGE.RESET_PASS_REQUEST_SENT;
                 }
                 else{
@@ -118,7 +118,7 @@ class PWResetRequestPage extends Component {
                         </div>
                         <a href={CONST.PAGE.HOME}><img className="form-page__logo" src={ic_logo}></img></a>
                     </div>
-                    
+
                     <div className="form-container">
                         <div className="form-type form-type--right-side">
                             <span className="form-type__title from-type--disable form-type--left" onClick={() => window.location.href=CONST.PAGE.SIGNUP}>NEW TO SUITOK.COM?<img className="form-type__icon" src={ic_arrow_right}></img></span>
@@ -136,11 +136,11 @@ class PWResetRequestPage extends Component {
                         <div className="ask-email-form">
                             <div className="form-desc">If you've forgotten your password, enter your e-mail address and we'll send you an e-mail telling you how to recover it.</div>
                             <div className="form-fields">
-                                <FormInput 
+                                <FormInput
                                     label="Email address"
                                     value={this.state.email}
                                     fieldError={this.state.fieldError.email}
-                                    msgErrorEmpty="Your email address is empty"
+                                    msgError="Your email address is empty"
                                     msgErrorCheck="Existing email: Write a new one"
                                     callback={this.callbackEmail}
                                 ></FormInput>
@@ -148,10 +148,9 @@ class PWResetRequestPage extends Component {
                                     <div className="form-btn-normal__text">reset password</div>
                                 </div>
                             </div>
-                        </div>    
-                    </div>                    
+                        </div>
+                    </div>
                 </div>
-                
             </div>
         );
     }

@@ -69,10 +69,9 @@ class FormRadio extends Component {
                         </label>
                     </div>
                 </div>
-                <label className="form-field__error">{this.props.msgErrorEmpty}</label>
+                <label className="form-field__error">{this.props.msgError}</label>
             </div>
         );
-
     }
 }
 
