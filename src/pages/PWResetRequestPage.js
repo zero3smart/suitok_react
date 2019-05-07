@@ -108,6 +108,8 @@ class PWResetRequestPage extends Component {
 
         var error_msg_html = '';
 
+        console.log('sdfadfasd');
+
         return(
             <div className="form-page forgetpw-page">
                 <div className="container before-reset-password-progress">

@@ -1317,6 +1317,16 @@ body.show--popup {
   padding: 3px 8px;
 }
 
+.form-field-wrap.error--empty .form-field__input-wrap:hover{
+  border: 2px solid #CA2F30 !important;
+  padding: 3px 8px;
+}
+
+.form-field-wrap.error--empty .form-field__input-wrap:focus-within{
+  border: 2px solid #CA2F30 !important;
+  padding: 3px 8px;
+}
+
 .form-field__input-wrap input {
   outline: 0px;
   border: 0px;

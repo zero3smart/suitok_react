@@ -77,32 +77,39 @@ class FormPostcode extends Component {
                 if(response.status_text == CONST.API.RESP.SUCCESS.status_text){
                     var suggestions = response.suggestions;
                     var postcodes = [];
-                    for(var sindex = 0; sindex < suggestions.length; sindex++){
-                        postcodes.push({
-                            key: suggestions[sindex],
-                            text: suggestions[sindex],
-                            value: suggestions[sindex]
-                        })
-                    }
-
-                    instance.setState({
-                        postcodes: postcodes
-                    }, () => {
-                        let options = document.querySelectorAll('div[role="listbox"] div[role="option"]');
-
-                        if (options != null) {
-                            options.forEach(option => {
-                                let html = option.innerText;
-                                let pos = html.indexOf(value);
-                                if (pos !== -1) {
-                                    let substr = html.substr(pos + value.length);
-                                    let newHtml = '<span class="text">' + html.substr(0, pos + value.length) + '<span style="font-weight: 700">' +
-                                    substr + '</span></span>';
-                                    option.innerHTML = newHtml;
-                                }
-                            });
+                    if (typeof suggestions !== "string") {
+                        for (var sindex = 0; sindex < suggestions.length; sindex++) {
+                            postcodes.push({
+                                key: suggestions[sindex],
+                                text: suggestions[sindex],
+                                value: suggestions[sindex]
+                            })
                         }
-                    })
+
+                        instance.setState({
+                            postcodes: postcodes
+                        }, () => {
+                            let options = document.querySelectorAll('div[role="listbox"] div[role="option"]');
+
+                            if (options != null) {
+                                options.forEach(option => {
+                                    let html = option.innerText;
+                                    let pos = html.indexOf(value);
+                                    if (pos !== -1) {
+                                        let substr = html.substr(pos + value.length);
+                                        let newHtml = '<span class="text">' + html.substr(0, pos + value.length) + '<span style="font-weight: 700">' +
+                                            substr + '</span></span>';
+                                        option.innerHTML = newHtml;
+                                    }
+                                });
+                            }
+                        })
+                    } else {
+                        instance.setState({
+                            postcodes: postcodes,
+                            field_error: CONST.FIELD_ERR.EMPTY
+                        });
+                    }
                 }
                 else{
                     instance.setState({
@@ -141,7 +148,7 @@ class FormPostcode extends Component {
         return(
             <div className={wrap_class}>
                 <label className="form-field__title">{this.props.label}</label>
-                <div className="form-field-row hide--arrow">
+                <div className="hide--arrow">
                     {/* <FormSelect
                         isSearchable={true}
                         options={this.state.postcodes}

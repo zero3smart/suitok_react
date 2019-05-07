@@ -13,7 +13,7 @@ const PAGE_URL = {
     OUTFITS: '/outfits',
 
     FORGET_PASS: '/forgetpassword',
-    RESET_PASS_REQUEST: '/reset_password_request',
+    RESET_PASS_REQUEST: '/password/recover',
     RESET_PASS_REQUEST_SENT: '/reset_password_request_sent',
     RESET_PASS_EMAIL: '/password',/*email template*/
     RESET_PASS: '/reset_password',

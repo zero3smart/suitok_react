@@ -176,8 +176,10 @@ class SignupPage extends Component {
     }
 
     validateEmail(email) {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
+        // var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g;
+        var re = /^([a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z])$/g;
+
+        return email.length <= 80 && re.test(String(email).toLowerCase());
     }
 
     callbackUsername(data){
@@ -700,6 +702,7 @@ class SignupPage extends Component {
                                     msgError={this.state.msgError.email}
                                     msgErrorCheck="Existing email: Write a new one"
                                     callback={this.callbackEmail}
+                                    maxLength={255}
                                 ></FormInput>
                                 <FormInput
                                     label="Username"
@@ -708,6 +711,7 @@ class SignupPage extends Component {
                                     msgError={this.state.msgError.username}
                                     msgErrorCheck="Existing username: Write a new one"
                                     callback={this.callbackUsername}
+                                    maxLength={255}
                                 ></FormInput>
                                 <FormInput
                                     type={CONST.FORM_INPUT.PASSWORD}
@@ -717,6 +721,7 @@ class SignupPage extends Component {
                                     value={this.state.password}
                                     fieldError={this.state.fieldError.password}
                                     callback={this.callbackPassword}
+                                    maxLength={100}
                                 ></FormInput>
                                 <FormInput
                                     label="First Name"

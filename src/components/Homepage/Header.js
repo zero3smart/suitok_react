@@ -16,7 +16,7 @@ import CONST from '../../global/const'
 class Header extends Component {
     constructor(props){
         super(props);
-     
+
         this.showUserPopup = this.showUserPopup.bind(this);
 
         this.state = {
@@ -44,14 +44,17 @@ class Header extends Component {
     }
 
     showUserPopup(visible){
-        
+
         this.setState({
             user_menu_visible: visible
         })
     }
 
+    onLogoClick = (e) => {
+        window.open('/', '_blank');
+    }
+
     render() {
-        
         var ic_user_normal = img_menu_user_black;
         var ic_user_hover = img_menu_user_orange;
 
@@ -75,18 +78,18 @@ class Header extends Component {
             return(
                 <div className="header container">
                     <a href="#" className="header-logo">
-                        <img className="header-logo__img" src={img_logo}></img>
+                        <img className="header-logo__img" src={img_logo} onContextMenu={this.onLogoClick}></img>
                     </a>
                     <div className="header-menu">
-                        <div className="header-menu-item hmi--user-menu-popup" 
+                        <div className="header-menu-item hmi--user-menu-popup"
                             onMouseOver={() => this.showUserPopup(true)}
                             onMouseLeave={() => this.showUserPopup(false)}>
                             <img className="header-menu-item__icon icon--desktop-nav icon--normal" src={ic_user_normal}></img>
                             <img className="header-menu-item__icon icon--desktop-nav icon--hover" src={ic_user_hover}></img>
-                            <UserMenuPopup 
+                            <UserMenuPopup
                                 style={user_menu_style}
-                                info={this.props.info} 
-                                showLoginPopup={this.props.showLoginPopup.bind(this)} 
+                                info={this.props.info}
+                                showLoginPopup={this.props.showLoginPopup.bind(this)}
                                 passLogout={this.props.passLogout.bind(this)}
                                 goPage={this.props.goPage.bind(this)}
                                 showVideo={this.props.showVideo.bind(this)}/>
@@ -127,23 +130,23 @@ class Header extends Component {
                         'display': 'none'
                     }
                 }
-                
+
             }
 
             return(
                 <div className="header container">
                     <a href="#" className="header-logo">
-                        <img className="header-logo__img" src={img_logo}></img>
+                        <img className="header-logo__img" src={img_logo} onContextMenu={this.onLogoClick}></img>
                     </a>
                     <div className="header-menu">
-                        <div className="header-menu-item hmi--user-menu-popup" 
+                        <div className="header-menu-item hmi--user-menu-popup"
                             ref={node => this.hmi_user_menu_icon = node}>
                             <img className="header-menu-item__icon icon--desktop-nav icon--normal" style={user_icon_normal_style} src={ic_user_normal}></img>
                             <img className="header-menu-item__icon icon--desktop-nav icon--hover" style={user_icon_hover_style} src={ic_user_hover}></img>
-                            <UserMenuPopup 
+                            <UserMenuPopup
                                 style={user_menu_style}
-                                info={this.props.info} 
-                                showLoginPopup={this.props.showLoginPopup.bind(this)} 
+                                info={this.props.info}
+                                showLoginPopup={this.props.showLoginPopup.bind(this)}
                                 passLogout={this.props.passLogout.bind(this)}
                                 goPage={this.props.goPage.bind(this)}
                                 showVideo={this.props.showVideo.bind(this)}/>
@@ -160,7 +163,7 @@ class Header extends Component {
                 </div>
             )
         }
-        
+
     }
 }
 export default Header

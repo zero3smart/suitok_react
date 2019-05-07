@@ -56,7 +56,7 @@ class App extends Component {
             window.location.href=CONST.PAGE.BROWSER_SUPPORT;
         }
     }
-    
+
     if(Platform.Browser.toLowerCase() === CONST.BROWSER.IE.NAME){
         if(parseInt(Platform.BrowserVersion) < CONST.BROWSER.IE.VERSION){
             window.location.href=CONST.PAGE.BROWSER_SUPPORT;
@@ -74,7 +74,7 @@ class App extends Component {
             window.location.href=CONST.PAGE.BROWSER_SUPPORT;
         }
     }
-    
+
 
     //   alert(browser.name + ':' + browser.version);
     // alert(navigator.userAgent);
@@ -160,7 +160,7 @@ class App extends Component {
             <Route exact={true} path={CONST.PAGE.VERIFICATION_EMAIL} Component={VerificationEmailPage} render={(props) => (
                 <VerificationEmailPage />
             )}/>
-            
+
           </Switch>
         </div>
       </Router>
