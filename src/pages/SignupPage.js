@@ -185,7 +185,7 @@ class SignupPage extends Component {
     callbackUsername(data){
         const { fieldError, msgError } = this.state;
 
-        var regExp = /^[a-zA-Z0-9_]+$/g;
+        var regExp = /^[a-zA-Z0-9]+$/g;
 
         /*fetch(url, {
                 method: 'GET',
@@ -235,7 +235,7 @@ class SignupPage extends Component {
                 fieldError: fieldError,
                 msgError: msgError
             });
-        } else if (regExp.test(data) === false) {
+        } else if (regExp.test(data) === false || data.length > 20) {
             fieldError.username = CONST.FIELD_ERR.CHECK_ERROR;
             msgError.username = 'Invalid username format';
 
@@ -373,13 +373,19 @@ class SignupPage extends Component {
         })
     }
 
-    callbackPostcode(data){
+    callbackPostcode(data, state){
         console.log('callbackPostcode', data);
         var { fieldError, msgError } = this.state;
 
         if(data === ''){
-            fieldError.postcode = CONST.FIELD_ERR.EMPTY;
-            msgError.postcode = "Your postcode is empty";
+            if (state) {
+                fieldError.postcode = CONST.FIELD_ERR.EMPTY;
+                msgError.postcode = "Your postcode is empty";
+            } else {
+                fieldError.postcode = CONST.FIELD_ERR.EMPTY;
+                msgError.postcode = "This postcode could not be found";
+            }
+
         }
         else {
             fieldError.postcode = CONST.FIELD_ERR.NONE;

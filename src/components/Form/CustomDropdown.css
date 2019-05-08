@@ -39,11 +39,11 @@
 }
 
 .custom-dropdown-container .ui.selection.active.dropdown:hover{
-    border: 1px solid #F36A22;
+    border: 2px solid #F36A22;
 }
 
 .custom-dropdown-container .ui.selection.active.dropdown:focus-within{
-    border: 1px solid #F36A22;
+    border: 2px solid #F36A22;
 }
 
 .custom-dropdown-container .ui.selection.active.dropdown .menu{

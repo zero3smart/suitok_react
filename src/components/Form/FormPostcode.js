@@ -17,7 +17,8 @@ class FormPostcode extends Component {
                 value: this.props.placeholder,
                 label: this.props.placeholder
             },
-            field_error: this.props.fieldError
+            field_error: this.props.fieldError,
+            isStartSearch: false
         }
 
         this.callbackInputChange = this.callbackInputChange.bind(this);
@@ -27,7 +28,7 @@ class FormPostcode extends Component {
     componentDidMount(){
     }
 
-    callbackBlur(value) {
+    callbackBlur(value, state) {
         if (value === '') {
             this.setState({
                 field_error: CONST.FIELD_ERR.EMPTY
@@ -39,7 +40,7 @@ class FormPostcode extends Component {
             })
         }
 
-        this.props.callback(value);
+        this.props.callback(value, state);
     }
 
     callbackInputChange(value){
@@ -47,6 +48,7 @@ class FormPostcode extends Component {
             this.setState({
                 postcodes: []
             })
+
             return;
         }
         // var postcodes = this.state.postcodes;
@@ -124,7 +126,6 @@ class FormPostcode extends Component {
                 console.log('postcodes', instance.postcodes);
             }
         })
-
     }
 
     render() {
