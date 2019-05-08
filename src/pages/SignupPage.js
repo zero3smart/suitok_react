@@ -286,13 +286,13 @@ class SignupPage extends Component {
 
     callbackPassword(data){
         const { fieldError, msgError } = this.state;
-        var regExp = /^(?=.*\d)[0-9a-zA-Z]{8,100}$/;
+        var regExp = /^(?=.*\d)[0-9a-zA-Z]{8,20}$/;
 
         if (data === '') {
             fieldError.password = CONST.FIELD_ERR.EMPTY;
             msgError.password = 'Your password is empty';
         } else if (regExp.test(data) === false) {
-            fieldError.password = CONST.FIELD_ERR.INVALID;
+            fieldError.password = CONST.FIELD_ERR.CHECK_ERROR;
             msgError.password = 'Invalid password format';
         } else {
             fieldError.password = CONST.FIELD_ERR.NONE;
