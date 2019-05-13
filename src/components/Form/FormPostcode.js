@@ -45,6 +45,7 @@ class FormPostcode extends Component {
 
     callbackInputChange(value){
         if (value == '') {
+            // document.querySelector('div[role="combobox"] .menu.transition').setAttribute("style", "display: block !important");
             this.setState({
                 postcodes: []
             })
@@ -76,6 +77,7 @@ class FormPostcode extends Component {
             },
             dataType:"json",
             success: function(response){
+                // document.querySelector('div[role="combobox"]').setAttribute("style", "border-bottom: 1px solid #F36A22 !important; z-index: 100 !important");
                 if(response.status_text == CONST.API.RESP.SUCCESS.status_text){
                     var suggestions = response.suggestions;
                     var postcodes = [];
@@ -105,11 +107,11 @@ class FormPostcode extends Component {
                                     }
                                 });
                             }
+                            document.querySelector('div[role="combobox"] .menu.transition').setAttribute("style", "display: block !important");
                         })
                     } else {
                         instance.setState({
                             postcodes: postcodes,
-                            field_error: CONST.FIELD_ERR.EMPTY
                         });
                     }
                 }

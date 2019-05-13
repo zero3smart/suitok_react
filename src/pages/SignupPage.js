@@ -286,7 +286,9 @@ class SignupPage extends Component {
 
     callbackPassword(data){
         const { fieldError, msgError } = this.state;
-        var regExp = /^(?=.*\d)[0-9a-zA-Z]{8,20}$/;
+        var regExp = /^(?=.*\d)([a-zA-Z]+){8,100}$/g;
+        // var regExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^!@#\$%\^&\*])(?=.{8,})/g;
+        // var regExp = /^(?=.*[0-9])[a-zA-Z0-9]{6,16}$/;
 
         if (data === '') {
             fieldError.password = CONST.FIELD_ERR.EMPTY;

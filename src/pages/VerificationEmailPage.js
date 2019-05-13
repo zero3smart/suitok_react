@@ -20,7 +20,7 @@ class VerificationEmailPage extends Component {
     static propTypes = {
         cookies: instanceOf(Cookies).isRequired
     };
-    
+
     constructor(props){
         super(props);
 
@@ -52,7 +52,7 @@ class VerificationEmailPage extends Component {
                 status_text: '',
                 message: ''
             },
-            
+
         }
 
         this.doResendEmail = this.doResendEmail.bind(this);
@@ -67,7 +67,7 @@ class VerificationEmailPage extends Component {
     goLoginPage(){
         window.location.href = CONST.PAGE.LOGIN;
     }
-    
+
     doResendEmail(){
         var instance = this;
         $.ajax({
@@ -87,7 +87,7 @@ class VerificationEmailPage extends Component {
             }
         })
     }
-    
+
     render() {
 
         var form_hide__signup_sent = '';
@@ -119,13 +119,16 @@ class VerificationEmailPage extends Component {
                         </div>
                         <a href={CONST.PAGE.HOME}><img className="form-page__logo" src={ic_logo}></img></a>
                     </div>
-                    
+
                     <div className="form-container">
                         <div className="form-type form-type--left-side">
-                            <span className="form-type__title form-type--left">NEW TO SUITOK.COM?<img className="form-type__icon" src={ic_arrow_right}></img></span>
+                            <span className="form-type__title form-type--left">
+                                <a href={CONST.PAGE.SIGNUP}>NEW TO SUITOK.COM?</a>
+                                <img className="form-type__icon" src={ic_arrow_right}></img>
+                            </span>
                             <span className="form-type__sep"></span>
                             <span className="form-type__title from-type--disable form-type--right" onClick={() => window.location.href=CONST.PAGE.LOGIN}><img className="form-type__icon" src={ic_arrow_left}></img>EXISTING CUSTOMER</span>
-                        </div>                        
+                        </div>
                         <div className={"verification-email-form " + form_hide__signup_sent}>
                             <div className="form-alert">
                                 <img className="form-alert__icon" src={ic_ok}></img>
@@ -153,8 +156,8 @@ class VerificationEmailPage extends Component {
                                     </div>
                                 </div>
                             </div>
-                        </div>                         
-                    </div>               
+                        </div>
+                    </div>
                 </div>
             </div>
         );

@@ -151,6 +151,7 @@ class Header extends Component {
                                 goPage={this.props.goPage.bind(this)}
                                 showVideo={this.props.showVideo.bind(this)}/>
                         </div>
+
                         <div className="header-menu-item" onClick={() => this.props.goPage(CONST.PAGE.CLOSET, true)} title="CLOSET">
                             <img className="header-menu-item__icon icon--desktop-nav icon--normal" src={img_menu_closet_black}></img>
                             <img className="header-menu-item__icon icon--desktop-nav icon--hover" src={img_menu_closet_orange}></img>
