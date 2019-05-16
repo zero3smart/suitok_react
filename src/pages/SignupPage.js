@@ -387,7 +387,6 @@ class SignupPage extends Component {
                 fieldError.postcode = CONST.FIELD_ERR.EMPTY;
                 msgError.postcode = "This postcode could not be found";
             }
-
         }
         else {
             fieldError.postcode = CONST.FIELD_ERR.NONE;
